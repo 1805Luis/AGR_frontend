@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+
+</head>
+<body>
+    <header class="toolbar event-toolbar">
+        <a href="/menu" class="back-button">
+          <span class="back-arrow">&#8592;</span> Volver al menú
+        </a>
+        <h1><%= event.name %></h1>
+      </header>
+
+      <main>
+        <section class="event-details">
+          <div class="details-container">
+            <!-- Columna izquierda: Descripción y Localización -->
+            <div class="left-column">
+              <!-- Cajita de Descripción -->
+              <div class="detail-box description">
+                <h2>Descripción</h2>
+                <p><%= event.description %></p>
+              </div>
+              <!-- Cajita de Localización -->
+              <div class="detail-box location">
+                <h2>Localización</h2>
+                <p><%= event.location %></p>
+              </div>
+            </div>
+      
+            <!-- Columna derecha: Categorías de Asientos -->
+            <div class="right-column">
+              <div class="detail-box">
+                <h3>Categorías de Asientos</h3>
+                <form action="/reserva/<%= event.id %>" method="POST">
+                  <div class="seat-categories scrollable-seat-box">
+                    <% event.categories.forEach(category => { %>
+                      <div class="seat-box seat-category" data-price="<%= category.precio %>">
+                        <h4><%= category.type %></h4>
+                        <p>Disponible: <%= category.availableSeats %> asientos</p>
+                        <p>Precio por asiento: <%= category.precio %> €</p>
+                        <input type="number" 
+                               name="category_<%= category.type %>" 
+                               id="category_<%= category.type %>" 
+                               min="0" 
+                               max="<%= category.availableSeats %>" 
+                               value="0">
+                      </div>
+                    <% }) %>
+                  </div>
+                  
+                  <!-- Total y botón de reserva -->
+                  <div class="total-container">
+                    <div class="total">
+                      <p id="totalPrice">Total: €0.00</p>
+                    </div>
+                    <button type="submit">Realizar Reserva</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+  <script src="../scripts/evento.js"></script>
+</body>
+</html>

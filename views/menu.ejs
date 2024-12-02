@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="toolbar">
+    <h1>Bienvenido a la Venta de Entradas</h1>
+    <div class="user-menu">
+      <button id="userMenuButton">☰</button>
+      <div id="userMenu" class="menu">
+      <!-- <a href="/perfil">Perfil</a> --> 
+        <a href="/logout">Cerrar sesión</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="event-list-container">
+        <h2>Eventos Disponibles</h2>
+        <div class="event-list">
+            <% if (events.length === 0) { %>
+                <h2>No hay eventos en estos momentos.</h2>
+            <% } else { %>
+                <% events.forEach(event => { %>
+                    <div class="event-card">
+                        <a href="/evento/<%= event.id %>" class="event-link">
+                            <div class="event-card-content">
+                                <h3><%= event.name %></h3>
+                                <p><%= event.description %></p>
+                                <p><strong>Lugar:</strong> <%= event.location %></p>
+                            </div>
+                        </a>
+                    </div>
+                <% }) %>
+            <% } %>
+        </div>
+    </section>
+</main>
+
+  <script src="/scripts/menu.js"></script>
+</body>
+</html>

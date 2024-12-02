@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+  <title>Iniciar Sesión o Registrarse</title>
+</head>
+<body>
+  <div class="card-container">
+    <div class="card">
+      <!-- Cara de Iniciar Sesión -->
+      <div class="front">
+        <h1>Iniciar Sesión</h1>
+        <!-- Fragmento de formulario -->
+        <form id="login-form" action="/login" method="POST">
+            <label for="login-username">Usuario:</label>
+            <input type="text" id="login-username" name="username" class="input-field" required>
+            
+            <label for="login-password">Contraseña:</label>
+            <input type="password" id="login-password" name="password" class="input-field" required>
+            
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+  
+        <p>
+          ¿No tienes cuenta? <a href="#" id="flip-to-register">Regístrate aquí</a>
+        </p>
+      </div>
+
+      <!-- Cara de Nuevo Usuario -->
+      <div class="back">
+        <h1>Nuevo Usuario</h1>
+        <form id="register-form" action="/register" method="POST">
+          <label for="register-name">Nombre:</label>
+          <input type="text" id="register-name" name="name" class="input-field" required>
+
+          <label for="register-username">Usuario:</label>
+          <input type="text" id="register-username" name="username" class="input-field" required>
+
+          <label for="register-password">Contraseña:</label>
+          <input type="password" id="register-password" name="password" class="input-field" required>
+          
+          <button type="submit">Registrarse</button>
+        </form>
+        <p>
+          ¿Ya tienes cuenta? <a href="#" id="flip-to-login">Inicia sesión aquí</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <script src="/scripts/login.js"></script>
+</body>
+</html>

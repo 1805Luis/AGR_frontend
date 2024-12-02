@@ -1,0 +1,507 @@
+/* Estilos básicos */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('./images/Fondo.png');
+    background-size: cover;  /* Asegura que la imagen cubra todo el fondo */
+    background-position: center center;  /* Centra la imagen en la pantalla */
+    background-repeat: no-repeat;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    flex-direction: column;
+    text-align: center;  /* Centrar todo el contenido */
+  }
+  
+  header {
+    background-color: #2575fc;
+    color: #fff;
+    width: 100%;
+    padding: 20px 40px; /* Espacio más amplio para el toolbar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;  /* Mantener la barra de navegación arriba */
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .user-menu {
+    position: absolute; /* Posiciona el botón en relación con el header */
+   right: calc(120px);
+    color:#fff;
+    top: 5px;
+  }
+  
+  #userMenuButton {
+    background-color: #2575fc;
+    color: white;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
+
+    
+  }
+  
+  .menu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    width: 150px;
+    z-index: 100;
+  }
+  
+  .menu a {
+    display: block;
+    padding: 10px;
+    color: #2575fc;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .menu a:hover {
+    background-color: #f0f0f0;
+  }
+  
+  
+  .event-list h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #000; /* Color negro para el título de los eventos */
+  }
+  
+  .event-list ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;  /* Usamos flexbox para una fila horizontal */
+    gap: 20px; /* Espacio entre las tarjetas */
+    margin: 0;
+}
+  
+  .event-list li {
+    margin-bottom: 20px;
+  }
+  
+  .event-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+    color: #000; /* Color negro para los títulos de las tarjetas */
+  }
+  
+  .event-card p {
+    margin: 5px 0;
+    color: #000; /* Color negro para los párrafos */
+  }
+
+  /* Estilo para el contenedor de la lista de eventos */
+.event-list-container {
+    width: 80%;
+    max-width: 1200px; /* Máxima anchura para no ocupar toda la pantalla */
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Scroll vertical */
+    max-height: 80vh; /* Altura máxima del contenedor */
+    margin-top: 50px;
+}
+
+/* Título de la sección de eventos */
+.event-list-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilo para la lista de eventos */
+.event-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Dos columnas */
+    gap: 20px; /* Espacio entre las tarjetas */
+}
+
+/* Estilo para cada tarjeta de evento */
+.event-card {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 150px;
+    text-align: left;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Contenido dentro de la tarjeta */
+.event-card-content {
+    flex-grow: 1; /* Hace que el contenido ocupe todo el espacio disponible */
+}
+
+.event-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.event-card p {
+    color: #555;
+}
+
+.event-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Efecto hover para las tarjetas */
+}
+  
+
+/* Estilo de la tarjeta de login */
+.card-container {
+    perspective: 1000px;
+}
+
+.card {
+    width: 300px;
+    height: 400px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+}
+
+.card .front, .card .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.card .front {
+    background: #fff;
+    color: #333;
+}
+
+.card .back {
+    background: #333;
+    color: #fff;
+    transform: rotateY(180deg);
+}
+
+.card-container.flip .card {
+    transform: rotateY(180deg);
+}
+
+/* Estilo de los formularios */
+form {
+    width: 100%;
+    max-width: 260px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.input-field, button {
+    width: 100%; /* Aseguramos que ambos elementos tengan el mismo ancho */
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.input-field {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+}
+
+.input-field:focus {
+    border-color: #6a11cb;
+    outline: none;
+    background: #fff;
+}
+
+button {
+    background: #2575fc;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #6a11cb;
+}
+
+p {
+    margin-top: 15px;
+    text-align: center;
+}
+
+a {
+    color: #2575fc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Perfil */
+.profile-form {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.profile-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #2575fc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.profile-form button:hover {
+    background-color: #6a11cb;
+}
+
+/* Estilo para el toolbar */
+.event-toolbar {
+    display: flex;
+    justify-content: center; /* Centra los elementos en el contenedor */
+    align-items: center;
+    background-color: #2575fc;
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Estilo para el botón de volver al menú */
+.back-button {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.back-button .back-arrow {
+    margin-right: 8px; /* Espacio entre la flecha y el texto */
+    font-size: 20px; /* Tamaño de la flecha */
+}
+
+.event-toolbar h1 {
+    margin: 0;
+    font-size: 24px;
+    text-align: center;
+    flex-grow: 1;
+}
+
+/* Estilo para el contenedor de detalles (cajitas) */
+.details-container {
+    display: flex;
+    justify-content: space-between; /* Separa las columnas */
+    gap: 20px; /* Espacio entre columnas */
+    width: 100%;
+    max-width: 1200px; /* Limita el ancho */
+    margin: 0 auto; /* Centra horizontalmente */
+    padding: 20px;
+}
+
+/* Columna izquierda: Descripción y Localización */
+.left-column {
+    margin-top: 15%;
+    flex: 1; /* Proporción menor para esta columna */
+    max-width: 35%; /* Ocupa un ancho más pequeño */
+    display: flex;
+    flex-direction: column; /* Apila elementos en columna */
+    gap: 20px; /* Espaciado interno */
+  }
+  
+  .right-column {
+    margin-top: 7%;
+    flex: 2; /* Proporción mayor para esta columna */
+    max-width: 65%; /* Ocupa más espacio horizontal */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.0); /* Fondo blanco con transparencia */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Opcional: Sombra */
+  }
+
+/* Detalles generales de las cajas */
+.detail-box {
+background-color: #fff;
+color: #000;
+border-radius: 10px;
+padding: 20px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+background-color: rgba(255, 255, 255, 0.8);
+}
+  
+
+.detail-box h2, .detail-box h3 {
+    font-size: 2rem; /* Uso de rem para tamaños de fuente relativos */
+    margin-bottom: 10px;
+}
+
+.detail-box p {
+    font-size: 1rem; /* También se utiliza rem para la fuente */
+}
+
+/* Estilo para las categorías de asiento */
+.seat-category {
+    margin-bottom: 15px;
+}
+
+.seat-category input {
+    width: 50px;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+/* Medias queries para diferentes tamaños de pantalla */
+@media (max-width: 600px) {
+    .detail-box {
+        padding: 15px; /* Menos relleno para pantallas pequeñas */
+    }
+
+    .event-toolbar {
+        padding: 10px; /* Ajusta el relleno */
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-form, .card-container, .card, .event-list ul {
+        width: 100%;
+    }
+
+    .event-list h2 {
+        font-size: 20px; /* Ajuste de tamaño de fuente */
+    }
+
+    .event-card h3 {
+        font-size: 18px;
+    }
+}
+
+
+.scrollable-seat-box {
+    margin-left: 15%;
+    max-height: 400px; /* Altura máxima para el área de los asientos */
+    overflow-y: auto; /* Activa el scroll solo en esta sección */
+    margin-bottom: 10px; /* Espaciado antes del total */
+    width: 120%; /* Reduce el espacio que ocupa el área de scroll a un 80% del contenedor padre */
+    display: flex;
+    gap: 5px; /* Aumenta el espacio entre las categorías dentro del contenedor */
+    flex-wrap: wrap; /* Permite que los asientos se ajusten en varias filas si no caben */
+  }
+  
+  .seat-box {
+    width: 350px; /* Aumenta el ancho de cada caja de asiento */
+    border: 1px solid #ccc; /* Opcional: Bordes visibles */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Opcional: Sombra */
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo ligeramente transparente */
+  }
+  
+  
+  
+  .seat-box h4, .seat-box p, .seat-box input {
+    margin: 0 10px; /* Espaciado interno entre los elementos */
+    
+  }
+  
+  .seat-box input {
+    width: 70px; /* Ancho fijo para el input */
+    padding: 5px;
+    margin-top: 4%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 15%;
+
+  }
+  .total-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50% ;
+    margin-top: 20px; /* Espacio superior si es necesario */
+  }
+  
+  .total {
+    font-size: 18px; /* Ajusta el tamaño si es necesario */
+    margin-bottom: 10px; /* Espacio entre el total y el botón */
+  }
+  
+  button {
+    display: flex;
+    background-color: #21027e; /* Color verde para el botón */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 145px; /* Ancho fijo para el input */
+  }
+  
+  button:hover {
+    background-color: #16c44a; /* Color al pasar el ratón */
+  }
+  
