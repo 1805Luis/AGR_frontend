@@ -9,6 +9,12 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+// Middleware para agregar un título genérico
+app.use((req, res, next) => {
+  res.locals.title = "Planifica Tu Ocio"; // Título genérico
+  next(); // Continuar con la siguiente función
+});
+
 // Simulación de base de datos de usuarios
 const users = [
   { dni: "12345678A", clave: "1234567" },
