@@ -40,10 +40,7 @@ Este proyecto es una aplicación de gestión de eventos y reservas desarrollada 
     - Los usuarios pueden seleccionar categorías de asiento y realizar reservas.
     - La cantidad de asientos se actualiza según la disponibilidad.
 
-### 4.Perfil de Usuario:
-
-    - Permite a los usuarios actualizar su perfil con nuevos datos de nombre o contraseña.
-### 5.Simulación de Base de Datos:
+### 4.Simulación de Base de Datos:
 - El proyecto tiene la opcion de conectarse a una base de datos o simularla con un array de usuarios y eventos para manejar la persistencia de datos local.
 
 ## Uso
