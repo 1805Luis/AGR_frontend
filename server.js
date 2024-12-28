@@ -141,7 +141,7 @@ const isDatabaseAvailable = async () => {
     const response = await axios.get('http://database:3306/'); // Cambia la dirección según tu configuración
     return true; // Si responde, la base de datos está disponible
   } catch (error) {
-    console.error('Error al conectar a la base de datos:', error);
+    console.log('Error al conectar a la base de datos:', error);
     return false; // Si hay un error, la base de datos no está disponible
   }
 };
