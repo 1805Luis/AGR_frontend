@@ -8,10 +8,10 @@ Este proyecto es una aplicación de gestión de eventos y reservas desarrollada 
 ## Instalación
 
 ### 1. Clona el repositorio:
-git clone <url-del-repositorio>  
-cd planifica-tu-ocio  
+    - git clone https://github.com/1805Luis/AGR_frontend.git
+    - cd planifica-tu-ocio  
 ### 2. Instala las dependencias:
-npm install  
+    - npm install  
 ### 3.Configura tu base de datos simulado o cualquier otro servicio de base de datos necesario (opcional).
 ### 4.Inicia el servidor:
 npm start  
