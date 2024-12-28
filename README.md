@@ -14,7 +14,7 @@ Este proyecto es una aplicación de gestión de eventos y reservas desarrollada 
     - npm install  
 ### 3.Configura tu base de datos simulado o cualquier otro servicio de base de datos necesario (opcional).
 ### 4.Inicia el servidor:
-npm start  
+    npm start  
 
 ## Estructura del Proyecto
 
