@@ -133,9 +133,18 @@ const events = [
   },
 ];
 
-
-
 let selectedSeats = [];
+
+// Función para verificar si la base de datos está disponible
+const isDatabaseAvailable = async () => {
+  try {
+    const response = await axios.get('http://database:3306/'); // Cambia la dirección según tu configuración
+    return true; // Si responde, la base de datos está disponible
+  } catch (error) {
+    console.error('Error al conectar a la base de datos:', error);
+    return false; // Si hay un error, la base de datos no está disponible
+  }
+};
 
 // Redirige al login al iniciar
 app.get("/", (req, res) => {
@@ -147,32 +156,39 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
-  // Verificar si los campos están vacíos
   if (!username || !password) {
     return res.redirect("/login?error=Error%20Rellene%20todos%20los%20campos");
   }
 
-  // Buscar el usuario en el array
-  const user = users.find(u => u.dni === username);
+  const dbAvailable = await isDatabaseAvailable();
 
-  if (user) {
-    if (user.clave === password) {
-      // Si el DNI y clave son correctos, redirige al menú principal
-      res.redirect("/menu");
-    } else {
-      // Si la clave es incorrecta
+  if (dbAvailable) {
+    // Intentar buscar el usuario en la base de datos
+    try {
+      const response = await axios.get(`http://database/users/${username}`); // Cambia la URL según tu API de base de datos
+      const user = response.data;
+      if (user && user.password === password) {
+        res.redirect("/menu");
+      } else {
+        res.redirect("/login?error=Error%20DNI%20y/o%20clave%20incorrectos");
+      }
+    } catch (error) {
+      console.error("Error al buscar el usuario:", error);
       res.redirect("/login?error=Error%20DNI%20y/o%20clave%20incorrectos");
     }
   } else {
-    // Si el usuario no existe
-    res.redirect("/login?error=Error%20DNI%20y/o%20clave%20incorrectos");
+    // Usar datos simulados si la base de datos no está disponible
+    const user = users.find(u => u.dni === username);
+    if (user && user.clave === password) {
+      res.redirect("/menu");
+    } else {
+      res.redirect("/login?error=Error%20DNI%20y/o%20clave%20incorrectos");
+    }
   }
 });
-
-
 
 // Página de registro
 app.get("/register", (req, res) => {
@@ -180,89 +196,120 @@ app.get("/register", (req, res) => {
 });
 
 // Maneja el registro
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
   const { name, username, password } = req.body;
 
-  // Verificar si los campos están vacíos
   if (!name || !username || !password) {
     return res.redirect("/register?error=Por%20favor%20rellene%20todos%20los%20campos");
   }
 
-  // Verificar si el usuario ya existe
-  const userExists = users.find((user) => user.username === username);
+  const dbAvailable = await isDatabaseAvailable();
 
-  if (userExists) {
-    return res.redirect("/register?error=Usuario%20ya%20existe");
+  if (dbAvailable) {
+    try {
+      const response = await axios.post('http://database/users', { name, username, password }); // Cambia la URL según tu API de base de datos
+      res.redirect("/menu");
+    } catch (error) {
+      console.error("Error al registrar el usuario:", error);
+      res.redirect("/register?error=Usuario%20ya%20existe");
+    }
+  } else {
+    // Verificar si el usuario ya existe en los datos simulados
+    const userExists = users.find(u => u.dni === username);
+    if (userExists) {
+      return res.redirect("/register?error=Usuario%20ya%20existe");
+    }
+
+    // Agregar nuevo usuario a la base de datos simulada
+    users.push({ name, username, password });
+    res.redirect("/menu");
   }
-
-  // Agregar nuevo usuario a la base de datos simulada
-  users.push({ name, username, password });
-
-  // Redirigir al menú principal después de registrarse
-  res.redirect("/menu");
 });
 
 // Página del menú principal
-app.get("/menu", (req, res) => {
-  res.render("menu", { events });
+app.get("/menu", async (req, res) => {
+  const dbAvailable = await isDatabaseAvailable();
+
+  if (dbAvailable) {
+    try {
+      const response = await axios.get('http://database/events'); // Cambia la URL según tu API de base de datos
+      res.render("menu", { events: response.data });
+    } catch (error) {
+      console.error("Error al obtener los eventos:", error);
+      res.render("menu", { events });
+    }
+  } else {
+    res.render("menu", { events });
+  }
 });
 
 app.get('/logout', (req, res) => {
-    res.redirect('/login'); // Redirige a la página de login
+  res.redirect('/login'); // Redirige a la página de login
 });
 
-  // Ruta para mostrar el perfil
-app.get('/perfil', (req, res) => {
-// const currentUser = users[0]; // Suponiendo que el primer usuario es el actual
-// res.render('perfil', { user: currentUser }); // Pasa los datos del usuario a la vista
-});
-  
-  // Ruta para procesar el formulario de actualización del perfil
-app.post('/perfil', (req, res) => {
-    const { name, email, password } = req.body;
-    // Actualiza los datos del usuario en el array `users`
-    users[0] = { name, username: users[0].username, password }; // Actualiza solo el nombre y la contraseña
-    res.redirect('/perfil'); // Redirige al perfil después de la actualización
+app.get("/evento/:id", async (req, res) => {
+  const eventId = req.params.id;
+  const dbAvailable = await isDatabaseAvailable();
+
+  let event;
+  if (dbAvailable) {
+    try {
+      const response = await axios.get(`http://database/events/${eventId}`);
+      event = response.data;
+    } catch (error) {
+      console.error("Error al obtener el evento:", error);
+      res.status(404).send("Evento no encontrado");
+      return;
+    }
+  } else {
+    event = events.find(e => e.id == eventId);
+  }
+
+  if (!event) {
+    return res.status(404).send("Evento no encontrado");
+  }
+
+  res.render("evento", { event });
 });
 
-app.get("/evento/:id", (req, res) => {
-    const eventId = req.params.id;
-    const event = events.find(e => e.id == eventId);
-  
-    if (!event) {
+app.post("/reserva/:eventId", async (req, res) => {
+  const eventId = req.params.eventId;
+  const dbAvailable = await isDatabaseAvailable();
+
+  let event;
+  if (dbAvailable) {
+    try {
+      const response = await axios.get(`http://database/events/${eventId}`); 
+      event = response.data;
+    } catch (error) {
+      console.error("Error al obtener el evento:", error);
       return res.status(404).send("Evento no encontrado");
     }
-  
-    res.render("evento", { event });
-});
+  } else {
+    event = events.find(e => e.id == eventId);
+  }
 
-app.post("/reserva/:eventId", (req, res) => {
-const eventId = req.params.eventId;
-const event = events.find(e => e.id == eventId);
-
-if (!event) {
+  if (!event) {
     return res.status(404).send("Evento no encontrado");
-}
+  }
 
-// Procesar la reserva
-let totalPrice = 0;
-for (let category of event.categories) {
+  // Procesar la reserva
+  let totalPrice = 0;
+  for (let category of event.categories) {
     const quantity = parseInt(req.body[`category_${category.type}`]) || 0;
     if (quantity > 0) {
-    if (quantity > category.availableSeats) {
+      if (quantity > category.availableSeats) {
         return res.status(400).send(`No hay suficientes asientos disponibles en la categoría ${category.type}`);
+      }
+      totalPrice += category.precio * quantity;
+      category.availableSeats -= quantity; // Reducir los asientos disponibles
     }
-    totalPrice += category.precio * quantity;
-    category.availableSeats -= quantity; // Reducir los asientos disponibles
-    }
-}
+  }
 
-// Agregar la reserva a la lista de reservas (en un sistema real, esta información se guardaría en una base de datos)
-selectedSeats.push({ event: event.name, totalPrice, details: req.body });
+  selectedSeats.push({ event: event.name, totalPrice, details: req.body });
 
-res.render("menu", { events });
+  res.render("menu", { events });
 });
-  
 
 // Iniciar servidor
 app.listen(port, () => {
