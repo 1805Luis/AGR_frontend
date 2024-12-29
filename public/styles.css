@@ -36,7 +36,7 @@ body {
   
   .user-menu {
     position: absolute; /* Posiciona el botón en relación con el header */
-   right: calc(120px);
+   right: calc(90px);
     color:#fff;
     top: 5px;
   }
@@ -54,28 +54,32 @@ body {
   }
   
   .menu {
-    display: none;
-    position: absolute;
-    top: 40px;
+    display: none; /* Oculto por defecto */
+    position: absolute; /* Posición absoluta */
+    top: 45px; /* Ubicación debajo del botón */
     right: 0;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    width: 150px;
-    z-index: 100;
-  }
+    background-color: #fff; /* Fondo blanco para el menú */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+    border-radius: 5px; /* Bordes redondeados */
+    width: 200px; /* Ancho del menú */
+    z-index: 100; /* Asegura que el menú esté arriba de otros elementos */
+}
   
-  .menu a {
-    display: block;
-    padding: 10px;
-    color: #2575fc;
-    text-decoration: none;
-    font-size: 16px;
-  }
+    .menu a {
+        display: block;
+        padding: 10px;
+        color: #2575fc;
+        text-decoration: none;
+        font-size: 16px;
+    }
   
   .menu a:hover {
     background-color: #f0f0f0;
   }
+
+  #userMenuButton:focus + .menu {
+    display: block; /* Mostrar el menú cuando el botón es presionado o tiene foco */
+ }
   
   
   .event-list h2 {
@@ -118,6 +122,8 @@ body {
     overflow-y: auto; /* Scroll vertical */
     max-height: 80vh; /* Altura máxima del contenedor */
     margin-top: 50px;
+    margin-left: 100px;
+    
 }
 
 /* Título de la sección de eventos */

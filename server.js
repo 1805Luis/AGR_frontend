@@ -73,7 +73,7 @@ const events = [
   },
   { 
     id: 5, 
-    name: "Fiesta de Electrónica", 
+    name: "Fiesta Electrónica", 
     description: "Un evento con los mejores DJs internacionales.", 
     location: "Ibiza", 
     seats: 250, 
@@ -230,18 +230,21 @@ app.post("/register", async (req, res) => {
 app.get("/menu", async (req, res) => {
   const dbAvailable = await isDatabaseAvailable();
 
+  let eventList = [];
   if (dbAvailable) {
     try {
       const response = await axios.get('http://database/events'); // Cambia la URL según tu API de base de datos
-      res.render("menu", { events: response.data });
+      eventList = response.data || []; // Asegurarse de que sea un arreglo
     } catch (error) {
       console.error("Error al obtener los eventos:", error);
-      res.render("menu", { events });
     }
   } else {
-    res.render("menu", { events });
+    eventList = events; // Usar eventos simulados si la base de datos no está disponible
   }
+
+  res.render("menu", { events: eventList });
 });
+
 
 app.get('/logout', (req, res) => {
   res.redirect('/login'); // Redirige a la página de login
